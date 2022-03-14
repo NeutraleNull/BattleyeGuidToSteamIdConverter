@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32210.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeutraleNull.GuidToSteamIdApi", "NeutraleNull.GuidToSteamIdApi\NeutraleNull.GuidToSteamIdApi.csproj", "{64545791-CC5D-45DB-9A35-CF38F8CB2673}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{64545791-CC5D-45DB-9A35-CF38F8CB2673}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64545791-CC5D-45DB-9A35-CF38F8CB2673}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64545791-CC5D-45DB-9A35-CF38F8CB2673}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64545791-CC5D-45DB-9A35-CF38F8CB2673}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {59CE2FDE-B16B-4BE5-81C2-F92B19525DD2}
+	EndGlobalSection
+EndGlobal
