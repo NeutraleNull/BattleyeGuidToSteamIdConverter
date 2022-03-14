@@ -4,6 +4,7 @@ using NeutraleNull.GuidToSteamIdApi.Database;
 using NeutraleNull.GuidToSteamIdApi.UseCases;
 using NeutraleNull.GuidToSteamIdApi;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,7 +28,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
 app.UseHttpsRedirection();
 
 app.MapGet("/GetSteamId/{guid}", async ([FromRoute] string guid, [FromServices] ApplicationDbContext db, [FromServices] IMemoryCache memoryCache) =>
@@ -48,5 +52,5 @@ app.MapGet("/GetSteamId/{guid}", async ([FromRoute] string guid, [FromServices] 
 }).Produces<BattleyeGuidSteamIdTuple>(StatusCodes.Status200OK)
    .Produces(StatusCodes.Status404NotFound); ;
 
-app.Run();
+app.Run("127.0.0.1:5004");
 
