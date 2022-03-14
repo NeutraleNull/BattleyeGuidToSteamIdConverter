@@ -34,9 +34,9 @@ namespace NeutraleNull.GuidToSteamIdApi.UseCases
         {
 			var completedCache = Interlocked.Increment(ref completedItems);
 
-			if (completedCache % 100000 == 0)
+			if (completedCache % 1000000 == 0)
             {
-                Console.WriteLine($"{completedCache / 100000}00k steamids processed. {(completedCache / 999999999) * 100}% completed");
+                Console.WriteLine($"{completedCache / 1000000}mio steamids processed. {(completedCache / 999999999) * 100}% completed");
 				WriteCacheToDb();
             }
 
