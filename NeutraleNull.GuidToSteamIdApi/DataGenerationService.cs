@@ -14,9 +14,12 @@ namespace NeutraleNull.GuidToSteamIdApi
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            using var scope = _services.CreateScope();
-            var seedDatabaseUseCaseawait = scope.ServiceProvider.GetRequiredService<ISeedDatabaseUseCase>();
-            await seedDatabaseUseCaseawait.HandleAync();
+            _ = Task.Run(async () =>
+            {
+                using var scope = _services.CreateScope();
+                var seedDatabaseUseCaseawait = scope.ServiceProvider.GetRequiredService<ISeedDatabaseUseCase>();
+                await seedDatabaseUseCaseawait.HandleAync();
+            });
         }
 
         public Task StopAsync(CancellationToken cancellationToken)
