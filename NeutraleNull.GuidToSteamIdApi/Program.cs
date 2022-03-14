@@ -19,6 +19,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseMySql(
 builder.Services.AddTransient<ISeedDatabaseUseCase, SeedDatabaseUseCase>();
 builder.Services.AddHostedService<DataGenerationService>();
 
+builder.Logging.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning);
+
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(
