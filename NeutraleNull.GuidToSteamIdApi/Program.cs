@@ -19,6 +19,16 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseMySql(
 builder.Services.AddTransient<ISeedDatabaseUseCase, SeedDatabaseUseCase>();
 builder.Services.AddHostedService<DataGenerationService>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:5004",
+                                "https://guidtosteamid.neutralenull.de");
+        });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -33,6 +43,8 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
     ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
 });
 app.UseHttpsRedirection();
+
+app.UseCors();
 
 app.MapGet("/GetSteamId/{guid}", async ([FromRoute] string guid, [FromServices] ApplicationDbContext db, [FromServices] IMemoryCache memoryCache) =>
 {
@@ -52,5 +64,5 @@ app.MapGet("/GetSteamId/{guid}", async ([FromRoute] string guid, [FromServices] 
 }).Produces<BattleyeGuidSteamIdTuple>(StatusCodes.Status200OK)
    .Produces(StatusCodes.Status404NotFound); ;
 
-app.Run("127.0.0.1:5004");
+app.Run("http://127.0.0.1:5004");
 
