@@ -36,6 +36,7 @@ namespace NeutraleNull.GuidToSteamIdApi.UseCases
 					Console.WriteLine("Resuming encoding");
 					await Parallel.ForEachAsync(GenerateSteamIds(last.SteamId64+1), new ParallelOptions { MaxDegreeOfParallelism = 16 }, HandleForeach);
 				}
+                Console.WriteLine("all ids in stock");
             }
         }
 
