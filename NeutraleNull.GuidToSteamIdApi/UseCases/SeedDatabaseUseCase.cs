@@ -64,7 +64,6 @@ namespace NeutraleNull.GuidToSteamIdApi.UseCases
 						stopWatch.Start();
 						_database.ChangeTracker.AutoDetectChangesEnabled = false;
 						_database.ChangeTracker.QueryTrackingBehavior = Microsoft.EntityFrameworkCore.QueryTrackingBehavior.NoTracking;
-						_database.
 						_database.BattleyeGuidSteamIdLookupTable.AddRangeAsync(temp);
 						_database.SaveChanges();
 						temp.Clear();
