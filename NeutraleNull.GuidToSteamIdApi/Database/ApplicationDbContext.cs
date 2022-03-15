@@ -23,6 +23,7 @@ namespace NeutraleNull.GuidToSteamIdApi.Database
     public class BattleyeGuidSteamIdTuple
     {
         [Key]
+        [MaxLength(32)]
         public string Guid { get; set; }
         public long SteamId64 { get; set; }
     }
