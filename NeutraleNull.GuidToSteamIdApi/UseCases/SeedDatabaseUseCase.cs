@@ -24,20 +24,24 @@ namespace NeutraleNull.GuidToSteamIdApi.UseCases
 
         public async Task HandleAync()
         {
-			if (_database.BattleyeGuidSteamIdLookupTable.Count(x => x.SteamId64 > 0) == 0)
+			var last = _database.BattleyeGuidSteamIdLookupTable
+				.OrderByDescending(x => x.SteamId64)
+				.FirstOrDefault();
+
+			if (last is null)
 			{
 				await Parallel.ForEachAsync(GenerateSteamIds(), new ParallelOptions { MaxDegreeOfParallelism = 16 }, HandleForeach);
 			}
 			else
-            {
-				var last = _database.BattleyeGuidSteamIdLookupTable.Last();
+			{
+
 				if (last.SteamId64 < 76561198999999999)
-                {
+				{
 					Console.WriteLine("Resuming encoding");
-					await Parallel.ForEachAsync(GenerateSteamIds(last.SteamId64+1), new ParallelOptions { MaxDegreeOfParallelism = 16 }, HandleForeach);
+					await Parallel.ForEachAsync(GenerateSteamIds(last.SteamId64 + 1), new ParallelOptions { MaxDegreeOfParallelism = 16 }, HandleForeach);
 				}
-                Console.WriteLine("all ids in stock");
-            }
+				Console.WriteLine("all ids in stock");
+			}
         }
 
 		private async ValueTask HandleForeach(long steamId, CancellationToken cts)
