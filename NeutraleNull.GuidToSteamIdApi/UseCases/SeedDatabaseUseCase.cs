@@ -28,6 +28,15 @@ namespace NeutraleNull.GuidToSteamIdApi.UseCases
 			{
 				await Parallel.ForEachAsync(GenerateSteamIds(), new ParallelOptions { MaxDegreeOfParallelism = 16 }, HandleForeach);
 			}
+			else
+            {
+				var last = _database.BattleyeGuidSteamIdLookupTable.Last();
+				if (last.SteamId64 < 76561198999999999)
+                {
+					Console.WriteLine("Resuming encoding");
+					await Parallel.ForEachAsync(GenerateSteamIds(last.SteamId64+1), new ParallelOptions { MaxDegreeOfParallelism = 16 }, HandleForeach);
+				}
+            }
         }
 
 		private async ValueTask HandleForeach(long steamId, CancellationToken cts)
@@ -106,11 +115,8 @@ namespace NeutraleNull.GuidToSteamIdApi.UseCases
 			return sb.ToString();
 		}
 
-		private IEnumerable<long> GenerateSteamIds()
+		private IEnumerable<long> GenerateSteamIds(long lower = 76561198000000000, long upper = 76561198999999999)
 		{
-			long lower = 76561198000000000;
-			long upper = 76561198999999999;
-
 			while (lower < upper)
 				yield return lower++;
 		}
